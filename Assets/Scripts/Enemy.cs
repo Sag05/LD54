@@ -65,6 +65,7 @@ public class Enemy : MonoBehaviour
             Destroy(collision.gameObject);
             if (hitpoints <= 0)
             {
+                economyScript.score++;
                 economyScript.currency += reward;
                 Destroy(gameObject);
             }

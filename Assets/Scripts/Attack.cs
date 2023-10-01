@@ -14,11 +14,15 @@ public class Attack : MonoBehaviour
     {
         if (collision.gameObject.layer == 3)
         {
-            Debug.Log("colliding with: " + collision.gameObject.name);
-            wallScript = collision.gameObject.GetComponent<Wall>();
-            inWallRange = true;
+            if (!inWallRange)
+            {
+                Debug.Log("colliding with: " + collision.gameObject.name);
+                wallScript = collision.gameObject.GetComponent<Wall>();
+                inWallRange = true;
 
-            StartCoroutine(AttackCoroutine());
+                StartCoroutine(AttackCoroutine());
+            }
+
         }
     }
 
@@ -26,8 +30,8 @@ public class Attack : MonoBehaviour
     {
         while (inWallRange)
         {
-            yield return new WaitForSeconds(reload);
             wallScript.hipoints -= damage;
+            yield return new WaitForSeconds(reload);
             //Debug.Log("Wall HP: " + wallScript.hipoints);
         }
     }
